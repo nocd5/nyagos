@@ -248,9 +248,13 @@ func keta(n int64) int {
 }
 
 func formatByHumanize(size int64) string {
-	s := humanize.Bytes(uint64(size))
+	s := humanize.IBytes(uint64(size))
 	if len(s) > 0 && s[len(s)-1] == 'B' {
-		s = s[:len(s)-1]
+		if s[len(s)-2] == 'i' {
+			s = s[:len(s)-2]
+		} else {
+			s = s[:len(s)-1]
+		}
 	}
 	return strings.ToUpper(strings.ReplaceAll(s, " ", ""))
 }
